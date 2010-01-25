@@ -32,7 +32,7 @@ from config import *
 import hashlib
 
 quitting = False
-handler = 2
+handler = 1
 counter = 1
 admins = []
 
@@ -90,11 +90,9 @@ class FloodBot:
                     try:
                         exec(filtered[4:])
                     except:
-                        # exceptionType, exceptionValue, exceptionTraceback = sys.exc_info()
                         self.bot.send(msg.buildReply("Случилась НЁХ:\n" + str("".join(traceback.format_exception(*sys.exc_info())))))
-                    return
 
-#                myqueue.put( ( sender[0], str(filtered) ) )
+                    return
 
 		global counter
                 if filtered[0] == "%" or filtered[0] == "!":
@@ -112,8 +110,8 @@ class FloodBot:
 		        prefix = "/me "
 			filtered = filtered[4:]
 
-	            myqueue.put( ( sender[0], str.format("{3}<{2}{0:06d}> {1}", counter, filtered, tripcode, prefix) ), True);
                     lock.acquire()
+	            myqueue.put( ( sender[0], str.format("{3}<{2}{0:06d}> {1}", counter, filtered, tripcode, prefix) ), True);
                     counter += 1
 		    lock.release()
 
